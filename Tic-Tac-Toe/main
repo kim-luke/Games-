@@ -1,0 +1,18 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class board {
+public:
+
+
+private:
+
+
+};
+
+int main() {
+
+	system("pause");
+	return 0;
+}
