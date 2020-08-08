@@ -2,16 +2,132 @@
 #include <string>
 using namespace std;
 
-class board {
-public:
+void showBoard(char board[3][3]) {
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			cout << board[i][j] << " ";
+		}
+		cout << endl;
+	}
+}
 
+void fillBoard(char board[3][3]) {
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			board[i][j] = '-';
+		}
+	}
+}
 
-private:
+void checkBoard(char board[3][3], bool &ticTacToe, bool &draw) {
+	if ((board[0][0] && board[0][1] && board[0][2] == '1') || (board[1][0] && board[1][1] && board[1][2] == '1') || (board[2][0] && board[2][1] && board[2][2] == '1') || (board[0][0] && board[1][0] && board[2][0] == '1') || (board[0][1] && board[1][1] && board[2][1] == '1') || (board[0][2] && board[1][2] && board[2][2] == '1') || (board[0][0] && board[1][1] && board[2][2] == '1') || (board[0][2] && board[1][1] && board[2][0] == '1')) {
+		ticTacToe = true;
+		cout << "Player Two wins!" << endl;
+	}
 
+	else if ((board[0][0] && board[0][1] && board[0][2] == '0') || (board[1][0] && board[1][1] && board[1][2] == '0') || (board[2][0] && board[2][1] && board[2][2] == '0') || (board[0][0] && board[1][0] && board[2][0] == '0') || (board[0][1] && board[1][1] && board[2][1] == '0') || (board[0][2] && board[1][2] && board[2][2] == '0') || (board[0][0] && board[1][1] && board[2][2] == '0') || (board[0][2] && board[1][1] && board[2][0] == '0')) {
+		ticTacToe = true;
+		cout << "Player One wins!" << endl;
+	}
 
-};
+	else if (board[0][0] && board[0][1] && board[0][2] && board[1][0] && board[1][1] && board[1][2] && board[2][0] && board[2][1] && board[2][2] == ('0' || '1')) {
+		draw = true;
+	}
+
+	else {
+		return;
+	}
+}
+
+void placeMarkerOne(char board[3][3], int num) {
+	switch (num) {
+		case 1:
+			board[0][0] = '0';
+			break;
+		case 2:
+			board[0][1] = '0';
+			break;
+		case 3:
+			board[0][2] = '0';
+			break;
+		case 4:
+			board[1][0] = '0';
+			break;
+		case 5:
+			board[1][1] = '0';
+			break;
+		case 6:
+			board[1][2] = '0';
+			break;
+		case 7:
+			board[2][0] = '0';
+			break;
+		case 8:
+			board[2][1] = '0';
+			break;
+		case 9:
+			board[2][2] = '0';
+			break;
+	}
+}
+
+void placeMarkerTwo(char board[3][3], int num) {
+	switch (num) {
+	case 1:
+		board[0][0] = '1';
+		break;
+	case 2:
+		board[0][1] = '1';
+		break;
+	case 3:
+		board[0][2] = '1';
+		break;
+	case 4:
+		board[1][0] = '1';
+		break;
+	case 5:
+		board[1][1] = '1';
+		break;
+	case 6:
+		board[1][2] = '1';
+		break;
+	case 7:
+		board[2][0] = '1';
+		break;
+	case 8:
+		board[2][1] = '1';
+		break;
+	case 9:
+		board[2][2] = '1';
+		break;
+	}
+}
 
 int main() {
+
+	char board[3][3];
+	fillBoard(board);
+	showBoard(board);
+	bool ticTacToe = false;
+	bool draw = false;
+
+	int playerOne, playerTwo;
+
+	cout << "Starting a game of tic tac toe" << endl;
+
+	while (ticTacToe == false && draw == false) {	
+		cout << "Player one: input a number from 1 - 9 to place your marker" << endl;
+		cin >> playerOne;
+		placeMarkerOne(board, playerOne);
+		showBoard(board);
+		checkBoard(board, ticTacToe, draw);
+
+		cout << "Player two: input a number from 1 - 9 to place your marker" << endl;
+		cin >> playerTwo;
+		placeMarkerTwo(board, playerTwo);
+		showBoard(board);	
+		checkBoard(board, ticTacToe, draw);
+	}
 
 	system("pause");
 	return 0;
